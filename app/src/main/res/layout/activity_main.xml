@@ -18,38 +18,39 @@
         android:layout_centerHorizontal="true"
         android:onClick="compras"/>
 
+    <Button
+        android:text="salvar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_compras"
+        android:layout_marginBottom="34dp"
+        android:id="@+id/salvar_compra"
+        android:onClick="salvarCompra"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <EditText
         android:hint="Descrição"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:id="@+id/descricao"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:hint="Data"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/data"
-        android:layout_below="@+id/descricao"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="salvar"
+        android:id="@+id/bt_DatePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_compras"
-        android:layout_alignRight="@+id/button_compras"
-        android:layout_alignEnd="@+id/button_compras"
-        android:layout_marginBottom="34dp"
-        android:id="@+id/salvar_compra"
-        android:onClick="salvarCompra"/>
+        android:text="Dia/Mes/Ano"
+        android:onClick="showDatePickerDialog"
+        android:layout_below="@+id/descricao"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

@@ -2,6 +2,7 @@ package br.com.ifpi.jefferson.exemplorealm.pojos;
 
 import java.util.ArrayList;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
@@ -16,6 +17,7 @@ public class Compra extends RealmObject{
     private long id ;
     private String Descrição ;
     private String data ;
+    private RealmList<Produto> produtos;
 
     public long getId() {
         return id;
@@ -44,4 +46,20 @@ public class Compra extends RealmObject{
         return this;
     }
 
+    public RealmList<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public Compra setProdutos(Produto produto) {
+        this.produtos.add(produto);
+        return this;
+    }
+
+    public double valorTotal (){
+        Double valorTotal = 0.0;
+        for (Produto produto: produtos) {
+            valorTotal = valorTotal + produto.getValor();
+        }
+        return valorTotal;
+    }
 }

@@ -1,15 +1,20 @@
 package br.com.ifpi.jefferson.exemplorealm.Activitys;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import br.com.ifpi.jefferson.exemplorealm.R;
 import br.com.ifpi.jefferson.exemplorealm.adapter.ComprasAdapter;
 import br.com.ifpi.jefferson.exemplorealm.pojos.Compra;
+import br.com.ifpi.jefferson.exemplorealm.pojos.Produto;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -37,5 +42,27 @@ public class ComprasActivity extends AppCompatActivity {
 
         comprasAdapter = new ComprasAdapter (this,compras);
         listaDeCompras.setAdapter(comprasAdapter);
+
+        AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int item = (int) listaDeCompras.getItemIdAtPosition(position);
+                Compra c = compras.get(item);
+                Intent intent = new Intent(view.getContext(),ProdutosCompradosActivity.class);
+                //pega o id da viagem que recebeu o click
+                intent.putExtra("Valor", c.getId());
+                startActivity(intent);
+                Toast.makeText(view.getContext(), "compra " + (item+1) + " selecionada",Toast.LENGTH_SHORT).show();
+
+            }
+        };
+
+        listaDeCompras.setOnItemClickListener(clickListener);
+    }
+
+
+
+    public ListView getListaDeCompras() {
+        return listaDeCompras;
     }
 }
