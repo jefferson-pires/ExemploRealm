@@ -23,7 +23,7 @@ import io.realm.RealmResults;
 public class MainActivity extends AppCompatActivity {
     Realm realm ;
     private EditText txtDescricao;
-    private EditText txtData;
+    private EditText txtOrcamento;
     private RealmResults<Compra> compras;
     public static String data = "";
     private static Button bt_Data;
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         txtDescricao = (EditText) findViewById(R.id.descricao);
+        txtOrcamento = (EditText) findViewById(R.id.orcamento_compra);
         bt_Data = (Button) findViewById(R.id.bt_DatePicker);
 
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
@@ -76,16 +77,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void salvarCompra(View view){
         String descrição = txtDescricao.getText().toString();
+        Double orcamento = Double.parseDouble(txtOrcamento.getText().toString());
 
         realm.beginTransaction();
         Compra compra = realm.createObject(Compra.class);
         compra.setData(data);
         compra.setDescrição(descrição);
         compra.setId(compras.size()+1);
+        compra.setOrcamento(orcamento);
         realm.commitTransaction();
         realm.close();
 
         toast("Compra criada com sucesso");
+    }
+
+    public void deletarCompra(View view){
+
+
     }
 
     public void compras(View view){

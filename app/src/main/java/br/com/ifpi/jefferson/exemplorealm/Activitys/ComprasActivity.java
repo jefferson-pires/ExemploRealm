@@ -22,8 +22,10 @@ import io.realm.RealmResults;
 public class ComprasActivity extends AppCompatActivity {
 
     ArrayList<Compra> compras ;
+    RealmResults<Compra> realmCompras;
     private ComprasAdapter comprasAdapter;
     private ListView listaDeCompras;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,8 @@ public class ComprasActivity extends AppCompatActivity {
         listaDeCompras = (ListView) findViewById(R.id.list_compras);
 
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
-        Realm realm = Realm.getInstance(realmConfig);
-        RealmResults<Compra> realmCompras = realm.where(Compra.class).findAll();
+        realm = Realm.getInstance(realmConfig);
+        realmCompras = realm.where(Compra.class).findAll();
 
         for (Compra compra: realmCompras) {
             compras.add(compra);
@@ -43,26 +45,46 @@ public class ComprasActivity extends AppCompatActivity {
         comprasAdapter = new ComprasAdapter (this,compras);
         listaDeCompras.setAdapter(comprasAdapter);
 
-        AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
+        listaDeCompras.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int item = (int) listaDeCompras.getItemIdAtPosition(position);
-                Compra c = compras.get(item);
-                Intent intent = new Intent(view.getContext(),ProdutosCompradosActivity.class);
-                //pega o id da viagem que recebeu o click
-                intent.putExtra("Valor", c.getId());
-                startActivity(intent);
-                Toast.makeText(view.getContext(), "compra " + (item+1) + " selecionada",Toast.LENGTH_SHORT).show();
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Compra Compradel = realm.where(Compra.class).equalTo("id",compras.get(position).getId()).findFirst();
+                realm.beginTransaction();
+                Compradel.deleteFromRealm();
+                realm.commitTransaction();
+                realm.close();
+                compras.remove(position);
+                refresh(view);
 
+                return false;
             }
-        };
+        });
 
-        listaDeCompras.setOnItemClickListener(clickListener);
+    }
+
+    public void refresh(View view){          //refresh is onClick name given to the button
+        onRestart();
+    }
+
+    @Override
+    protected void onRestart() {
+
+        // TODO Auto-generated method stub
+        super.onRestart();
+        Intent i = new Intent(this, ComprasActivity.class);  //your class
+        startActivity(i);
+        finish();
+
     }
 
 
 
     public ListView getListaDeCompras() {
         return listaDeCompras;
+    }
+
+    public void deletarCompra(View view){
+
+
     }
 }

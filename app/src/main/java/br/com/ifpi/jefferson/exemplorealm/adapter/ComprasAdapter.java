@@ -1,6 +1,8 @@
 package br.com.ifpi.jefferson.exemplorealm.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ifpi.jefferson.exemplorealm.Activitys.ComprasActivity;
 import br.com.ifpi.jefferson.exemplorealm.R;
 import br.com.ifpi.jefferson.exemplorealm.pojos.Compra;
 
@@ -46,10 +49,23 @@ public class ComprasAdapter extends BaseAdapter{
         View view = LayoutInflater.from(context).inflate(R.layout.compras_adapter,parent,false);
         TextView descCompra = (TextView) view.findViewById(R.id.desc_compra);
         TextView dataCompra = (TextView) view.findViewById(R.id.data_compra);
+        TextView valorCompra = (TextView) view.findViewById(R.id.valor_compra);
+        TextView valorGasto = (TextView) view.findViewById(R.id.valor_gasto);
 
         Compra compra = compras.get(position);
         descCompra.setText(compra.getDescrição());
         dataCompra.setText(compra.getData());
+        valorCompra.setText("Orçamento: R$ "+compra.getOrcamento().toString());
+        valorGasto.setText(compra.valorTotal()+"");
+
+
+
+        Bundle dados = new Bundle();
+
+
+
+/*                dados.putString("nome", nome);
+                dados.putString("email", email);*/
 
         return view;
     }

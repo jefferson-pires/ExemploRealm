@@ -17,6 +17,7 @@ public class Compra extends RealmObject{
     private long id ;
     private String Descrição ;
     private String data ;
+    private Double Orcamento;
     private RealmList<Produto> produtos;
 
     public long getId() {
@@ -48,6 +49,15 @@ public class Compra extends RealmObject{
 
     public RealmList<Produto> getProdutos() {
         return produtos;
+    }
+
+    public Double getOrcamento() {
+        return Orcamento;
+    }
+
+    public Compra setOrcamento(Double orcamento) {
+        Orcamento = orcamento;
+        return this;
     }
 
     public Compra setProdutos(Produto produto) {
