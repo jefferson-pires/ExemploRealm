@@ -70,6 +70,21 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    public void refresh(View view){          //refresh is onClick name given to the button
+        onRestart();
+    }
+
+    @Override
+    protected void onRestart() {
+
+        // TODO Auto-generated method stub
+        super.onRestart();
+        Intent i = new Intent(this, MainActivity.class);  //your class
+        startActivity(i);
+        finish();
+
+    }
+
     public void showDatePickerDialog(View view){
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
@@ -88,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         realm.copyToRealm(compra);
         realm.commitTransaction();
         realm.close();
-
         toast("Compra criada com sucesso");
+        refresh(view);
     }
 
     public void compras(View view){
