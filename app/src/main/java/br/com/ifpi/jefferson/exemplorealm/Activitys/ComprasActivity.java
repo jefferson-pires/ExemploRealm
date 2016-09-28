@@ -48,12 +48,13 @@ public class ComprasActivity extends AppCompatActivity {
         listaDeCompras.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Compra Compradel = realm.where(Compra.class).equalTo("id",compras.get(position).getId()).findFirst();
+                Compra CompraDel = realm.where(Compra.class).equalTo("id",compras.get(position).getId()).findFirst();
                 realm.beginTransaction();
-                Compradel.deleteFromRealm();
+                CompraDel.deleteFromRealm();
                 realm.commitTransaction();
                 realm.close();
                 compras.remove(position);
+                toast("Compra excluida");
                 refresh(view);
 
                 return false;
@@ -75,6 +76,11 @@ public class ComprasActivity extends AppCompatActivity {
         startActivity(i);
         finish();
 
+    }
+
+    private void toast(String msg){
+
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 

@@ -58,15 +58,6 @@ public class ComprasAdapter extends BaseAdapter{
         valorCompra.setText("Orçamento: R$ "+compra.getOrcamento().toString());
         valorGasto.setText(compra.valorTotal()+"");
 
-
-
-        Bundle dados = new Bundle();
-
-
-
-/*                dados.putString("nome", nome);
-                dados.putString("email", email);*/
-
         return view;
     }
 }

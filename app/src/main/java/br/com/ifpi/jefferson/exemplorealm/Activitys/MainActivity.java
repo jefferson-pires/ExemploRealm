@@ -85,15 +85,11 @@ public class MainActivity extends AppCompatActivity {
         compra.setDescrição(descrição);
         compra.setId(compras.size()+1);
         compra.setOrcamento(orcamento);
+        realm.copyToRealm(compra);
         realm.commitTransaction();
         realm.close();
 
         toast("Compra criada com sucesso");
-    }
-
-    public void deletarCompra(View view){
-
-
     }
 
     public void compras(View view){
