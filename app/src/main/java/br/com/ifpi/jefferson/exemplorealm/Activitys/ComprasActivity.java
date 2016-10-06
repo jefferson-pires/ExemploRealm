@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.com.ifpi.jefferson.exemplorealm.DAO;
 import br.com.ifpi.jefferson.exemplorealm.R;
 import br.com.ifpi.jefferson.exemplorealm.adapter.ComprasAdapter;
 import br.com.ifpi.jefferson.exemplorealm.pojos.Compra;
@@ -22,25 +23,20 @@ import io.realm.RealmResults;
 public class ComprasActivity extends AppCompatActivity {
 
     ArrayList<Compra> compras ;
-    RealmResults<Compra> realmCompras;
     private ComprasAdapter comprasAdapter;
     private ListView listaDeCompras;
     Realm realm;
 
+    DAO dao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dao = new DAO();
         setContentView(R.layout.activity_compras);
-        compras = new ArrayList<Compra>();
+        compras = dao.todasCompras();
         listaDeCompras = (ListView) findViewById(R.id.list_compras);
 
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
-        realm = Realm.getInstance(realmConfig);
-        realmCompras = realm.where(Compra.class).findAll();
-
-        for (Compra compra: realmCompras) {
-            compras.add(compra);
-        }
 
         comprasAdapter = new ComprasAdapter (this,compras);
         listaDeCompras.setAdapter(comprasAdapter);

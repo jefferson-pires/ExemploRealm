@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import br.com.ifpi.jefferson.exemplorealm.DAO;
 import br.com.ifpi.jefferson.exemplorealm.R;
 import br.com.ifpi.jefferson.exemplorealm.pojos.Compra;
 import io.realm.Realm;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private RealmResults<Compra> compras;
     public static String data = "";
     private static Button bt_Data;
+    DAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
         realm = Realm.getInstance(realmConfig);
         compras = realm.where(Compra.class).findAll();
+
+        dao = new DAO();
 
     }
 
@@ -93,16 +97,11 @@ public class MainActivity extends AppCompatActivity {
     public void salvarCompra(View view){
         String descrição = txtDescricao.getText().toString();
         Double orcamento = Double.parseDouble(txtOrcamento.getText().toString());
-
-        realm.beginTransaction();
-        Compra compra = realm.createObject(Compra.class);
+        Compra compra = new Compra();
         compra.setData(data);
         compra.setDescrição(descrição);
-        compra.setId(compras.size()+1);
         compra.setOrcamento(orcamento);
-        realm.copyToRealm(compra);
-        realm.commitTransaction();
-        realm.close();
+        dao.SalvarCompra(compra);
         toast("Compra criada com sucesso");
         refresh(view);
     }
