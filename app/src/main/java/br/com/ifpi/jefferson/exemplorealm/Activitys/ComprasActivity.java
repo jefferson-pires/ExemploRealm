@@ -44,12 +44,7 @@ public class ComprasActivity extends AppCompatActivity {
         listaDeCompras.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Compra CompraDel = realm.where(Compra.class).equalTo("id",compras.get(position).getId()).findFirst();
-                realm.beginTransaction();
-                CompraDel.deleteFromRealm();
-                realm.commitTransaction();
-                realm.close();
-                compras.remove(position);
+                dao.deletarCompra(compras.get(position).getId());
                 toast("Compra excluida");
                 refresh(view);
 

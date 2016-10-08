@@ -95,15 +95,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void salvarCompra(View view){
-        String descrição = txtDescricao.getText().toString();
-        Double orcamento = Double.parseDouble(txtOrcamento.getText().toString());
-        Compra compra = new Compra();
-        compra.setData(data);
-        compra.setDescrição(descrição);
-        compra.setOrcamento(orcamento);
-        dao.SalvarCompra(compra);
-        toast("Compra criada com sucesso");
-        refresh(view);
+        try {
+            String descrição = txtDescricao.getText().toString();
+            Double orcamento = Double.parseDouble(txtOrcamento.getText().toString());
+            Compra compra = new Compra();
+            compra.setData(data);
+            compra.setDescrição(descrição);
+            compra.setOrcamento(orcamento);
+            dao.SalvarCompra(compra);
+            toast("Compra criada com sucesso");
+            refresh(view);
+
+        }catch (Exception x){
+            toast("Você deixou algum campo vazio");
+        }
+
     }
 
     public void compras(View view){

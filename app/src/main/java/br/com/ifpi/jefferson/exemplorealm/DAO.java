@@ -1,6 +1,7 @@
 package br.com.ifpi.jefferson.exemplorealm;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,9 +16,8 @@ import io.realm.internal.Context;
  */
 
 public class DAO extends Application {
-    Realm realm;
-    RealmResults<Compra> compras;
-    RealmConfiguration config;
+    private Realm realm;
+    private RealmResults<Compra> compras;
 
     @Override
     public void onCreate() {
@@ -29,14 +29,28 @@ public class DAO extends Application {
                         .build();
 
         Realm.setDefaultConfiguration(realmConfiguration);
+
     }
 
     public void SalvarCompra(Compra compra){
+        try {
+            realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            compras = realm.where(Compra.class).findAll();
+            compra.setId(compras.size()+1);
+            realm.copyToRealm(compra);
+            realm.commitTransaction();
+            realm.close();
+        }catch (Exception ex){
+            Toast.makeText(this, "Não foi possivel a compra", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deletarCompra(Long id){
         realm = Realm.getDefaultInstance();
+        Compra compraDel = realm.where(Compra.class).equalTo("id",id).findFirst();
         realm.beginTransaction();
-        compras = realm.where(Compra.class).findAll();
-        compra.setId(compras.size()+1);
-        realm.copyToRealm(compra);
+        compraDel.deleteFromRealm();
         realm.commitTransaction();
         realm.close();
     }
