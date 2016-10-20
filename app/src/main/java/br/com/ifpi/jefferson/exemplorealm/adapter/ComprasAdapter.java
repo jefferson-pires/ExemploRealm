@@ -3,6 +3,7 @@ package br.com.ifpi.jefferson.exemplorealm.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,8 @@ import br.com.ifpi.jefferson.exemplorealm.pojos.Compra;
  * Created by Jefferson on 25/09/2016.
  */
 
-public class ComprasAdapter extends BaseAdapter{
+public class ComprasAdapter extends RecyclerView.Adapter{
+
     private final Context context;
     private final List<Compra> compras;
 
@@ -30,13 +32,28 @@ public class ComprasAdapter extends BaseAdapter{
     }
 
     @Override
-    public int getCount() {
-        return compras != null ? compras.size():0;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.compras_adapter, parent, false);
+        NossoViewHolder holder = new NossoViewHolder(view);
+
+        return holder;
     }
 
     @Override
-    public Object getItem(int position) {
-        return compras.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        NossoViewHolder holder = (NossoViewHolder) viewHolder;
+
+        Compra compra  = compras.get(position) ;
+
+        holder.dataCompra.setText(compra.getData().toString());
+        holder.descCompra.setText(compra.getDescrição().toString());
+        holder.valorCompra.setText("Orçamento: R$ "+compra.getOrcamento());
+        holder.valorGasto.setText(compra.valorTotal()+"");
+    }
+
+    @Override
+    public int getItemCount() {
+        return compras.size();
     }
 
     @Override
@@ -44,20 +61,21 @@ public class ComprasAdapter extends BaseAdapter{
         return position;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = LayoutInflater.from(context).inflate(R.layout.compras_adapter,parent,false);
-        TextView descCompra = (TextView) view.findViewById(R.id.desc_compra);
-        TextView dataCompra = (TextView) view.findViewById(R.id.data_compra);
-        TextView valorCompra = (TextView) view.findViewById(R.id.valor_compra);
-        TextView valorGasto = (TextView) view.findViewById(R.id.valor_gasto);
+    public class NossoViewHolder extends RecyclerView.ViewHolder {
 
-        Compra compra = compras.get(position);
-        descCompra.setText(compra.getDescrição());
-        dataCompra.setText(compra.getData());
-        valorCompra.setText("Orçamento: R$ "+compra.getOrcamento().toString());
-        valorGasto.setText(compra.valorTotal()+"");
+        TextView descCompra ;
+        TextView dataCompra ;
+        TextView valorCompra ;
+        TextView valorGasto ;
 
-        return view;
+        public NossoViewHolder(View view) {
+            super(view);
+            descCompra = (TextView) view.findViewById(R.id.desc_compra);
+            dataCompra = (TextView) view.findViewById(R.id.data_compra);
+            valorCompra = (TextView) view.findViewById(R.id.valor_compra);
+            valorGasto = (TextView) view.findViewById(R.id.valor_gasto);
+        }
+
     }
+
 }
