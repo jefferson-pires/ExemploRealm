@@ -5,13 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,10 +15,6 @@ import br.com.ifpi.jefferson.exemplorealm.DAO;
 import br.com.ifpi.jefferson.exemplorealm.R;
 import br.com.ifpi.jefferson.exemplorealm.adapter.ComprasAdapter;
 import br.com.ifpi.jefferson.exemplorealm.pojos.Compra;
-import br.com.ifpi.jefferson.exemplorealm.pojos.Produto;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
 public class ComprasActivity extends AppCompatActivity {
 

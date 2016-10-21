@@ -25,15 +25,17 @@ public class ComprasAdapter extends RecyclerView.Adapter{
 
     private final Context context;
     private final List<Compra> compras;
+    private LayoutInflater ml;
 
-    public ComprasAdapter (Context context, ArrayList<Compra> compras) {
+    public ComprasAdapter(Context context, ArrayList<Compra> compras) {
         this.context = context;
         this.compras = compras;
+        ml = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.compras_adapter, parent, false);
+        View view = ml.inflate(R.layout.compras_adapter, parent, false);
         NossoViewHolder holder = new NossoViewHolder(view);
 
         return holder;
