@@ -1,8 +1,11 @@
 package br.com.ifpi.jefferson.exemplorealm.Activitys;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -44,14 +47,6 @@ public class ComprasActivity extends AppCompatActivity {
                 toast("Compra excluida");
                 onRestart();
                 return false;
-            }
-        };
-
-        AdapterView.OnItemClickListener click = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(view.getContext(), ProdutosCompradosActivity.class);
-                startActivity(i);
             }
         };
 

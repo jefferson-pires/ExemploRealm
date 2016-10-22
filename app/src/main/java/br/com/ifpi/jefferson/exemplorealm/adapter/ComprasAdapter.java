@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ifpi.jefferson.exemplorealm.Activitys.ComprasActivity;
+import br.com.ifpi.jefferson.exemplorealm.Activitys.ProdutosCompradosActivity;
 import br.com.ifpi.jefferson.exemplorealm.R;
 import br.com.ifpi.jefferson.exemplorealm.pojos.Compra;
 
@@ -49,8 +50,8 @@ public class ComprasAdapter extends RecyclerView.Adapter{
 
         holder.dataCompra.setText(compra.getData().toString());
         holder.descCompra.setText(compra.getDescrição().toString());
-        holder.valorCompra.setText("Orçamento: R$ "+compra.getOrcamento());
-        holder.valorGasto.setText(compra.valorTotal()+"");
+        holder.valorCompra.setText("Orçamento: R$ "+compra.getOrcamento().toString().replace(".",","));
+        holder.valorGasto.setText("Valor gasto: R$ "+compra.valorTotal().toString().replace(".",","));
     }
 
     @Override
@@ -72,6 +73,14 @@ public class ComprasAdapter extends RecyclerView.Adapter{
 
         public NossoViewHolder(View view) {
             super(view);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), ProdutosCompradosActivity.class);
+                    context.startActivity(i);
+                }
+            });
+
             descCompra = (TextView) view.findViewById(R.id.desc_compra);
             dataCompra = (TextView) view.findViewById(R.id.data_compra);
             valorCompra = (TextView) view.findViewById(R.id.valor_compra);

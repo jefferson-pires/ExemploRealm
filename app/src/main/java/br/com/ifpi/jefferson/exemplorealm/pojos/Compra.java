@@ -65,7 +65,7 @@ public class Compra extends RealmObject{
         return this;
     }
 
-    public double valorTotal (){
+    public Double valorTotal (){
         Double valorTotal = 0.0;
         for (Produto produto: produtos) {
             valorTotal = valorTotal + produto.getValor();
