@@ -18,7 +18,7 @@ public class Compra extends RealmObject{
     private String Descrição ;
     private String data ;
     private Double Orcamento;
-    private RealmList<Produto> produtos;
+    private RealmList<Produto> produtos = new RealmList<Produto>();
 
     public long getId() {
         return id;

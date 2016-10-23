@@ -55,6 +55,14 @@ public class DAO extends Application {
         realm.close();
     }
 
+    public Compra buscarCompra(Long id){
+        Compra compra = new Compra();
+        realm = Realm.getDefaultInstance();
+        Compra compraEncontrada = realm.where(Compra.class).equalTo("id",id).findFirst();
+        compra = compraEncontrada;
+        return compra;
+    }
+
     public ArrayList<Compra> todasCompras(){
         realm = Realm.getDefaultInstance();
         compras = realm.where(Compra.class).findAll();

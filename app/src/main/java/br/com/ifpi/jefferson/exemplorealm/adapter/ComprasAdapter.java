@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ComprasAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         NossoViewHolder holder = (NossoViewHolder) viewHolder;
 
-        Compra compra  = compras.get(position) ;
+        Compra compra = compras.get(position) ;
 
         holder.dataCompra.setText(compra.getData().toString());
         holder.descCompra.setText(compra.getDescrição().toString());
@@ -57,11 +58,6 @@ public class ComprasAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         return compras.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
     }
 
     public class NossoViewHolder extends RecyclerView.ViewHolder {
@@ -77,6 +73,7 @@ public class ComprasAdapter extends RecyclerView.Adapter{
             view.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), ProdutosCompradosActivity.class);
+                    i.putExtra("id",compras.get(getAdapterPosition()).getId());
                     context.startActivity(i);
                 }
             });
@@ -88,5 +85,4 @@ public class ComprasAdapter extends RecyclerView.Adapter{
         }
 
     }
-
 }

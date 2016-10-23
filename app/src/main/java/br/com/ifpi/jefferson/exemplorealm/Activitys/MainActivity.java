@@ -17,6 +17,7 @@ import java.util.Calendar;
 import br.com.ifpi.jefferson.exemplorealm.DAO;
 import br.com.ifpi.jefferson.exemplorealm.R;
 import br.com.ifpi.jefferson.exemplorealm.pojos.Compra;
+import br.com.ifpi.jefferson.exemplorealm.pojos.Produto;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     Realm realm ;
     private EditText txtDescricao;
     private EditText txtOrcamento;
-    private RealmResults<Compra> compras;
     public static String data = "";
     private static Button bt_Data;
     DAO dao;
@@ -38,11 +38,6 @@ public class MainActivity extends AppCompatActivity {
         txtDescricao = (EditText) findViewById(R.id.descricao);
         txtOrcamento = (EditText) findViewById(R.id.orcamento_compra);
         bt_Data = (Button) findViewById(R.id.bt_DatePicker);
-
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
-        realm = Realm.getInstance(realmConfig);
-        compras = realm.where(Compra.class).findAll();
-
         dao = new DAO();
 
     }

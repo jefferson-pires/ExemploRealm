@@ -33,7 +33,7 @@ public class Produto extends RealmObject {
         return valor * getQuantidade();
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return Quantidade;
     }
 }
